@@ -9,26 +9,38 @@ import com.lammesoft.hsmc.Transition;
 public class Samples {
 
     public static void main(String[] args) {
-        Switch();
-       demo1();
+        SimpleTransition();
+        ContextualTransition();
+        DifferentMethods();
+
+        //demo1();
         // demo2();
         //demo3();
     }
-    
-    
-    
-    
-    
-    
-    
-    private static String relpath() {
-        return "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc/samples";
-    }
-    private static String relPackage() {
-        return "com.lammesoft.hsmc.samples";
+
+    public static void DifferentMethods() {
+        State s0 = new State();
+        State s1 = new State();
+        Method ma = new Method("public void a()");
+        Method mb = new Method("public void b()");
+        Machine m = new Machine();
+        m.trans(new Transition(ma, s0, s1, null, null));
+        m.trans(new Transition(mb, s1, s0, null, null));
+
+        m.build(s0, relpath(), relPackage(), "Demo3");
     }
 
-    public static void Switch() {
+    public static void SimpleTransition() {
+        State s0 = new State();
+        State s1 = new State();
+        Method ma = new Method("public void hit()");
+        Machine m = new Machine();
+        m.trans(new Transition(ma, s0, s1, null, null));
+
+        m.build(s0, relpath(), relPackage(), "Demo1");
+    }
+
+    public static void ContextualTransition() {
         State s0 = new State();
         State s1 = new State();
         Method ma = new Method("public void hit()");
@@ -37,10 +49,16 @@ public class Samples {
         m.trans(new Transition(ma, s0, s1, null, null));
         m.trans(new Transition(ma, s1, s0, null, null));
 
-        m.build(s0, relpath(), relPackage(), "Demo0");
+        m.build(s0, relpath(), relPackage(), "Demo2");
     }
-    
-    
+
+    private static String relpath() {
+        return "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc/samples";
+    }
+
+    private static String relPackage() {
+        return "com.lammesoft.hsmc.samples";
+    }
 
     public static void demo2() {
 
@@ -70,7 +88,7 @@ public class Samples {
 
         m.trans(new Transition(mc, s101, s101, null, null));
 
-        m.build(s2, relpath(),relPackage(), "Demo2");
+        m.build(s2, relpath(), relPackage(), "Demo2");
 
     }
 
@@ -105,7 +123,7 @@ public class Samples {
         m.trans(new Transition(swap, b, a, null, null));
         //m.logStates();
 
-        m.build(s1, relpath(),relPackage(), "Demo1");
+        m.build(s1, relpath(), relPackage(), "Demo1");
 
     }
 
