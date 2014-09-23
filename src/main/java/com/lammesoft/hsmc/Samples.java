@@ -18,8 +18,10 @@ public class Samples {
         m.trans(new Transition(ma, s0, s1, null, null));
         m.trans(new Transition(ma, s1, s0, null, null));
 
-        m.build(s0, "");
+        m.build(s0, "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc", "com.lammesoft.hsmc", "Demo");
     }
+    
+    
 
     public static void demo2() {
 
@@ -49,7 +51,7 @@ public class Samples {
 
         m.trans(new Transition(mc, s101, s101, null, null));
 
-        m.build(s2, "");
+        m.build(s2, "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc","com.lammesoft.hsmc", "Demo");
 
     }
 
@@ -84,7 +86,7 @@ public class Samples {
         m.trans(new Transition(swap, b, a, null, null));
         //m.logStates();
 
-        m.build(s1, "");
+        m.build(s1, "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc","com.lammesoft.hsmc", "Demo");
 
     }
 

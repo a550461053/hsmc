@@ -63,34 +63,14 @@ public class Machine {
     }
 
     public void trans(Transition t) {
-
         transitions.add(t);
     }
 
     private void reduce() {
 
-        // recuperation des states qui ne sont parent de personne
-        List<State> statesParentsDePersonne = new ArrayList<>();
-        for (State s : states) {
-            // test si S est parent de qq
-            boolean isParentOfSO = false;
-            for (State si : states) {
-                if (!si.equals(s) && si.getParent() != null
-                        && si.getParent().equals(s)) {
-                    System.out.println(s.getId() + " est en autre parent de " + si.getId());
-                    isParentOfSO = true;
-                    break;
-                }
-            }
-
-            if (isParentOfSO == false) {
-                statesParentsDePersonne.add(s);
-                System.out.println("> Parent de personne  : " + s.getId());
-            }
-        }
+        List<State> statesParentsDePersonne = getStatesFinaux();
 
         for (State ps : statesParentsDePersonne) {
-
             State s = ps;
 
             while (s != null) { // on remonte la chaine de 1 en 1
@@ -107,7 +87,7 @@ public class Machine {
                     System.out.println("\t\t" + pTransitions.size() + " trs");
 
                     for (Transition n : pTransitions) {
-                        if (transExist(s, n.getM()) == null) {
+                        if (transExist(s, n.getM()) ) {
                             tranistionsToAdd.add(new Transition(n.getM(), s, n.getTo(), n.getCond(), n.getAction()));
                         }
                     }
@@ -126,6 +106,33 @@ public class Machine {
 
     }
 
+    /**
+     * 
+     * @return states without children 
+     */
+    private List<State> getStatesFinaux() {
+        // recuperation des states qui ne sont parent de personne
+        List<State> statesParentsDePersonne = new ArrayList<>();
+        for (State s : states) {
+            // test si S est parent de qq
+            boolean isParentOfSO = false;
+            for (State si : states) {
+                if (!si.equals(s) && si.getParent() != null
+                        && si.getParent().equals(s)) {
+                    System.out.println(s.getId() + " est en autre parent de " + si.getId());
+                    isParentOfSO = true;
+                    break;
+                }
+            }
+            
+            if (isParentOfSO == false) {
+                statesParentsDePersonne.add(s);
+                System.out.println("> Parent de personne  : " + s.getId());
+            }
+        }
+        return statesParentsDePersonne;
+    }
+
     private List<Transition> getTransitionsFrom(State from) {
         List<Transition> list = new ArrayList<>();
         for (Transition t : transitions) {
@@ -136,16 +143,16 @@ public class Machine {
         return list;
     }
 
-    private Transition transExist(State s, Method m) {
+    private boolean transExist(State s, Method m) {
         for (Transition t : transitions) {
             if (t.getFrom().equals(s) && t.getM().equals(m)) {
-                return t;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
-    private void buildGraph(String path) {
+    private void buildGraph(String path, String className) {
 
         try {
 
@@ -157,12 +164,12 @@ public class Machine {
             }
 
             b.append("}\n");
-            try (PrintWriter pw = new PrintWriter(new FileOutputStream("D:\\src\\tests\\States\\src\\states\\Demo.dot"))) {
+            try (PrintWriter pw = new PrintWriter(new FileOutputStream(path+"/" + className+".dot"))) {
                 pw.println(b.toString());
             }
             
       
-            Process pr = Runtime.getRuntime().exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\" -Tpng D:\\src\\tests\\States\\src\\states\\Demo.dot -o D:\\src\\tests\\States\\src\\states\\Demo.png");
+            Process pr = Runtime.getRuntime().exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\" -Tpng "+path+"/"+className+".dot -o "+path+"/" + className+".png");
             
             pr.waitFor();
             
@@ -172,7 +179,7 @@ public class Machine {
         }
     }
 
-    public void build(State startup, String path) {
+    public void build(State startup, String path, String packageName, String className) {
 
         // on recupere tout
         for (Transition tr : transitions) {
@@ -190,8 +197,8 @@ public class Machine {
 
         String stateIdName = "state";
 
-        b.append("package states;\n");
-        b.append("public class Demo {\n");
+        b.append("package ").append(packageName).append(";\n");
+        b.append("public class ").append(className).append(" {\n");
 
         b.append("private int ").append(stateIdName).append("=").append(startup.getId()).append(";\n");
 
@@ -265,7 +272,7 @@ public class Machine {
 
         PrintWriter pw;
         try {
-            pw = new PrintWriter(new FileOutputStream("D:\\src\\tests\\States\\src\\states\\Demo.java"));
+            pw = new PrintWriter(new FileOutputStream(  path+"/" + className+".java"));
             pw.print(b.toString());
             pw.close();
 
@@ -276,7 +283,7 @@ public class Machine {
         
         
         
-        buildGraph(path);
+        buildGraph(path, className);
         
         
         System.out.println(b.toString());
