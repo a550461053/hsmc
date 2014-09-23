@@ -1,12 +1,25 @@
-package com.lammesoft.hsmc;
+package com.lammesoft.hsmc.samples;
+
+import com.lammesoft.hsmc.Condition;
+import com.lammesoft.hsmc.Machine;
+import com.lammesoft.hsmc.Method;
+import com.lammesoft.hsmc.State;
+import com.lammesoft.hsmc.Transition;
 
 public class Samples {
 
     public static void main(String[] args) {
         Switch();
       // demo1();
-        // demo2();
+         demo2();
         //demo3();
+    }
+    
+    private static String relpath() {
+        return "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc/samples";
+    }
+    private static String relPackage() {
+        return "com.lammesoft.hsmc.samples";
     }
 
     public static void Switch() {
@@ -18,7 +31,7 @@ public class Samples {
         m.trans(new Transition(ma, s0, s1, null, null));
         m.trans(new Transition(ma, s1, s0, null, null));
 
-        m.build(s0, "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc", "com.lammesoft.hsmc", "Demo");
+        m.build(s0, relpath(), relPackage(), "Demo0");
     }
     
     
@@ -51,7 +64,7 @@ public class Samples {
 
         m.trans(new Transition(mc, s101, s101, null, null));
 
-        m.build(s2, "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc","com.lammesoft.hsmc", "Demo");
+        m.build(s2, relpath(),relPackage(), "Demo1");
 
     }
 
@@ -86,7 +99,7 @@ public class Samples {
         m.trans(new Transition(swap, b, a, null, null));
         //m.logStates();
 
-        m.build(s1, "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc","com.lammesoft.hsmc", "Demo");
+        m.build(s1, relpath(),relPackage(), "Demo2");
 
     }
 
