@@ -10,10 +10,16 @@ public class Samples {
 
     public static void main(String[] args) {
         Switch();
-      // demo1();
-         demo2();
+       demo1();
+        // demo2();
         //demo3();
     }
+    
+    
+    
+    
+    
+    
     
     private static String relpath() {
         return "D:/src/tests/hsmc/src/main/java/com/lammesoft/hsmc/samples";
@@ -64,7 +70,7 @@ public class Samples {
 
         m.trans(new Transition(mc, s101, s101, null, null));
 
-        m.build(s2, relpath(),relPackage(), "Demo1");
+        m.build(s2, relpath(),relPackage(), "Demo2");
 
     }
 
@@ -99,7 +105,7 @@ public class Samples {
         m.trans(new Transition(swap, b, a, null, null));
         //m.logStates();
 
-        m.build(s1, relpath(),relPackage(), "Demo2");
+        m.build(s1, relpath(),relPackage(), "Demo1");
 
     }
 
