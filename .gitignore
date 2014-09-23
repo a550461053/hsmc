@@ -61,6 +61,5 @@ target/classes/.netbeans_automatic_build
 target/maven-archiver/pom.properties
 target/test-classes/.netbeans_automatic_build
 nbactions.xml
-src/main/java/com/lammesoft/hsmc/Demo.dot
-src/main/java/com/lammesoft/hsmc/Demo.java
-src/main/java/com/lammesoft/hsmc/Demo.png
+*Demo*.java
+*.dot
