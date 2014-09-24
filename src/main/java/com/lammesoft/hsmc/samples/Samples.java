@@ -12,10 +12,65 @@ public class Samples {
         SimpleTransition();
         ContextualTransition();
         DifferentMethods();
+        Conditions1();
+        DefaultCondition();
+        PriorityCondition();
+        MultipleCondition();
+        
+    }
 
-        //demo1();
-        // demo2();
-        //demo3();
+    public static void MultipleCondition() {
+        State s0 = new State();
+        State s1 = new State();
+        State s2 = new State();
+        State s3 = new State();
+        Method ma = new Method("public void hit()");
+
+        Machine m = new Machine();
+        m.trans(new Transition(ma, s0, s1, new Condition("true/*30*/", 30), null));
+        m.trans(new Transition(ma, s0, s3, new Condition("true/*60*/", 60), null));
+        m.trans(new Transition(ma, s0, s2, new Condition("true/*50*/", 50), null));
+
+        m.build(s0, relpath(), relPackage(), "Demo7");
+    }
+
+    public static void PriorityCondition() {
+        State s0 = new State();
+        State s1 = new State();
+        State s2 = new State();
+        State s3 = new State();
+        Method ma = new Method("public void hit()");
+
+        Machine m = new Machine();
+        m.trans(new Transition(ma, s0, s1, new Condition("true", 30), null));
+        m.trans(new Transition(ma, s0, s2, new Condition("false", 50), null));
+        m.trans(new Transition(ma, s0, s3, null, null));
+
+        m.build(s0, relpath(), relPackage(), "Demo6");
+    }
+
+    public static void DefaultCondition() {
+        State s0 = new State();
+        State s1 = new State();
+        State s2 = new State();
+        Method ma = new Method("public void hit()");
+
+        Machine m = new Machine();
+        m.trans(new Transition(ma, s0, s1, new Condition("true", 0), null));
+        m.trans(new Transition(ma, s0, s2, null, null));
+
+        m.build(s0, relpath(), relPackage(), "Demo5");
+    }
+
+    public static void Conditions1() {
+        State s0 = new State();
+        State s1 = new State();
+        Method ma = new Method("public void hit()");
+
+        Machine m = new Machine();
+        m.trans(new Transition(ma, s0, s1, new Condition("true", 0), null));
+
+        m.build(s0, relpath(), relPackage(), "Demo4");
     }
 
     public static void DifferentMethods() {
