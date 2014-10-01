@@ -16,6 +16,17 @@ public class Machine {
     private final List<Method> methods = new ArrayList<>();
     private final List<Transition> transitions = new ArrayList<>();
 
+    private boolean generateCan = false;
+
+    public boolean isGenerateCan() {
+        return generateCan;
+    }
+
+    public void setGenerateCan(boolean generateCan) {
+        this.generateCan = generateCan;
+    }
+    
+    
    
 
     private void storeMethods(Method m) {
